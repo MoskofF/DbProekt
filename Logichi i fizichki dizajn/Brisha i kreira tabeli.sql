@@ -51,7 +51,7 @@ drop table instruktori;
 create table Instruktori(
 	id_instruktor serial primary key,
 	instruktor_pw text not null,
-	instruktor_email varchar(400) unique constraint cool_email check (instruktor_email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
+	instruktor_email varchar(400) not null unique constraint cool_email check (instruktor_email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
 	data_na_ragjanje date not null,
 	ime_instruktor varchar(100) not null,
 	rate real
@@ -76,7 +76,7 @@ create table Korisnici(
 	nivo integer not null,
 	ime varchar(100) not null,
 	prezime varchar(100) not null,
-	korisnik_email varchar(400) unique constraint cool_email check (korisnik_email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
+	korisnik_email varchar(400) not null unique constraint cool_email check (korisnik_email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
 	visina_cm real,
 	tezhina_kg real,
 	cel varchar(100),
@@ -88,20 +88,20 @@ create table Korisnici(
 create table Dnevnici(
 	dnevnik_id serial primary key,
 	datum date not null,
-	korisnik integer references korisnici(korisnik_id)
+	korisnik integer not null references korisnici(korisnik_id)
 );
 
 create table Dnevnici_za_ishrana(
 	dnevnik_ishrana_id serial primary key,
 	chas varchar(100) not null,
-	dnevnik_fk integer references Dnevnici(dnevnik_id)
+	dnevnik_fk integer not null references Dnevnici(dnevnik_id)
 );
 
 create table Dnevnici_za_trchanje(
 	dnevnik_trchanje_id serial primary key,
 	metri real not null,
 	vreme_min real not null,
-	dnevnik_fk integer references Dnevnici(dnevnik_id)
+	dnevnik_fk integer not null references Dnevnici(dnevnik_id)
 );
 
 create table Sportovi(
@@ -116,26 +116,28 @@ create table Vezhbi(
 
 create table Dnevnici_za_trening(
 	dnevnik_trening_id serial primary key,
-	chas_pochetok varchar(100),
-	chas_kraj varchar(100),
-	dnevnik_fk integer references Dnevnici(dnevnik_id)
+	chas_pochetok varchar(100) not null,
+	chas_kraj varchar(100) not null,
+	dnevnik_fk integer not null references Dnevnici(dnevnik_id)
 );
 
 create table Treninzi(
 	trening_id serial primary key,
-	dnevnik_trening integer references Dnevnici_za_trening(dnevnik_trening_id)
+	dnevnik_trening integer not null references Dnevnici_za_trening(dnevnik_trening_id)
 );
 
 create table Sportuva(
-	sport integer references sportovi(sport_id),
-	trening integer references treninzi(trening_id),
-	vreme_min real not null
+	sport integer not null references sportovi(sport_id),
+	trening integer not null references treninzi(trening_id),
+	vreme_min real not null,
+	primary key(sport, trening)
 );
 
 create table Vezhba(
-	vezba integer references vezhbi(vezhba_id),
-	trening integer references treninzi(trening_id),
-	povtoruvanja integer not null
+	vezba integer not null references vezhbi(vezhba_id),
+	trening integer not null references treninzi(trening_id),
+	povtoruvanja integer not null,
+	primary key(vezba, trening)
 );
 
 create table Hrana(
@@ -161,49 +163,57 @@ create table Suplementi(
 
 create table Obroci(
 	obrok_id serial primary key,
-	naziv_opis_obrok varchar(400)
+	naziv_opis_obrok varchar(400) not null unique
 );
 
 create table Konzumirani_obroci(
-	dnevnik_hrana integer references dnevnici_za_ishrana(dnevnik_ishrana_id),
-	obrok integer references Obroci(obrok_id)
+	dnevnik_hrana integer not null references dnevnici_za_ishrana(dnevnik_ishrana_id),
+	obrok integer not null references Obroci(obrok_id),
+	primary key(dnevnik_hrana, obrok)
 );
 
 create table Koristi_suplement(
-	obrok integer references Obroci(obrok_id),
-	suplement integer references Suplementi(suplement_id)
+	obrok integer not null references Obroci(obrok_id),
+	suplement integer not null references Suplementi(suplement_id),
+	primary key(obrok, suplement)
 );
 
 create table Sodrzhi_hrana(
-	hrana integer references Hrana(hrana_id),
-	obrok integer references Obroci(obrok_id),
-	kolichina real not null
+	hrana integer not null references Hrana(hrana_id),
+	obrok integer not null references Obroci(obrok_id),
+	kolichina real not null,
+	primary key(hrana, obrok)
 );
 
 create table Sodrzhi_Pialok(
-	pialok integer references Pialoci(pialok_id),
-	obrok integer references Obroci(obrok_id),
-	kolichina_litri real not null
+	pialok integer not null references Pialoci(pialok_id),
+	obrok integer not null references Obroci(obrok_id),
+	kolichina_litri real not null,
+	primary key(pialok, obrok)
 );
 
 create table Ponuduva_prog_ishr(
-	programa integer references programi_za_ishrana(programa_ishr_id),
-	instruktor integer references Instruktori(id_instruktor)
+	programa integer not null references programi_za_ishrana(programa_ishr_id),
+	instruktor integer not null references Instruktori(id_instruktor),
+	primary key(programa, instruktor)
 );
 
 create table sodrzhi_obrok(
-	obrok integer references Obroci(obrok_id),
-	programa integer references Programi_za_ishrana(programa_ishr_id)
+	obrok integer not null references Obroci(obrok_id),
+	programa integer not null references Programi_za_ishrana(programa_ishr_id),
+	primary key(obrok, programa)
 );
 
 create table Ponuduva_prog_vezhbi(
-	programa integer references programi_za_vezhbanje(programa_vez_id),
-	instruktor integer references Instruktori(id_instruktor)
+	programa integer not null references programi_za_vezhbanje(programa_vez_id),
+	instruktor integer not null references Instruktori(id_instruktor),
+	primary key(programa, instruktor)
 );
 
 create table Sodrzhi_trening(
-	trening integer references Treninzi(trening_id),
-	programa integer references programi_za_vezhbanje(programa_vez_id)
+	trening integer not null references Treninzi(trening_id),
+	programa integer not null references programi_za_vezhbanje(programa_vez_id),
+	primary key(trening, programa)
 );
 
 
