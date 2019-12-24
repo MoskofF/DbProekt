@@ -145,6 +145,10 @@ values
 	(3, 1);
 
 
+SELECT max(sum(metri) FROM dnevnici_za_trchanje
+WHERE
+dnevnici.dnevnik_i
+
 
 
 
