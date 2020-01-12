@@ -1,155 +1,275 @@
-insert into instruktori(instruktor_pw, instruktor_email, data_na_ragjanje, ime_instruktor, rate)
+insert into Fitnes_instruktori(data_na_ragjanje, username, password, email)
 values
-	('general', 'miki_love@live.com', to_date('12051987', 'ddmmyy'), 'Mihail', 3.7),
-	('mashinka', 'koce.tri@gmail.com', to_date('04071990', 'ddmmyy'), 'Kosta', 4.1);
+	(to_date('06071946', 'ddmmyy'), 'rambo_roki', 'brusLi8998', 'stalone.rambo@gmail.com'),
+	(to_date('13121215', 'ddmmyy'), 'gerrald_z_rivie', 'richardgir', 'gerald_rivia@hotmail.com'),
+	(to_date('10031940', 'ddmmyy'), 'chuk.norris', 'ramboecar', 'chuck-norris@live.com'),
+	(to_date('07041954', 'ddmmyy'), 'jackie', 'chanmanajvan', 'jackiechan@yahoo.com'),
+	(to_date('18071967', 'ddmmyy'), 'vin_dizel', 'brzibesni', 'paul_walker@hotmail.com');
 	
-insert into programi_za_ishrana(ime_programa_ishrana)
+insert into Programi_za_ishrana(ime_programa_ishr)
 values
-	('kilo po kilo'),
-	('zelena i zdrava');
+	('Edno, dve, maksimum tri'),
+	('Suvi kebapi'),
+	('Za siromashni'),
+	('Strikno morska hrana'),
+	('Badnikova trpeza'),
+	('Carska gozba');
 	
-insert into programi_za_vezhbanje(ime_programa_trening, tezhina, potrebno_nivo)
+insert into Programi_za_trening(ime_programa_trening, tezhina, potrebno_nivo)
 values
-	('abs from hell', 4, 3);
-	
-insert into korisnici(korisnik_pw, data_na_ragjanje, nivo,  ime, prezime, korisnik_email, visina_cm, tezhina_kg, cel, instruktor, programa_ishrana, programa_vezbi)
-values
-	('skeleton', to_date('15041997', 'ddmmyy'), 4, 'Nikola', 'Semkov', 'semka_car@hotmail.com', 172, 94, 'muskuli', 2, 1, 1);
-	
-insert into dnevnici(datum, korisnik)
-values
-	(to_date('15112019', 'ddmmyy'), 1),
-	(to_date('16112019', 'ddmmyy'), 1);
+	('Skroz amater', 1, 0),
+	('Za na plazha', 3, 1),
+	('Za na instagram', 6, 2),
+	('Me maltretirat u skolo', 1, 0),
+	('John Wick style', 10, 10),
+	('Sakam da rabotam u zhelezara', 4, 2);
 
-insert into dnevnici_za_ishrana(chas, dnevnik_fk)
+insert into Korisnici(username, password, email, data_na_ragjanje, visina, tezina, cel, nivo, instruktor, programa_za_ishrana, programa_za_trening)
 values
-	('12:00', 1),
-	('16:35', 1),
-	('20:20', 1),
-	('10:45', 2),
-	('18:30', 2);
+	('kicho_praska', 'bonpraska2', 'praska.kicho@hotmail.com', to_date('10071993', 'ddmmyy'), 165, 82, 'Orevche na trap', 5, 4, 2, 4),
+	('angiejolie', 'bradpitt', 'angelina.jolie22@live.com', to_date('04061975', 'ddmmyy'), 179, 69, 'Gremi', 7, 5, 6, 2),
+	('cigismall', 'rombombom', 'bakar32@outlook.com', to_date('23051996', 'ddmmyy'), 160, 52, 'Karton', 1, null, 3, 6),
+	('mirkocar', 'lamja2356', 'mirko.vasov@outlook.com', to_date('22011992', 'ddmmyy'), 170, 80, 'To be fit', 3, 3, 4, 2);
 
-insert into dnevnici_za_trchanje(metri, vreme_min, dnevnik_fk)
+insert into Obroci(opis_obrok)
 values
-	(1500, 15, 1),
-	(1700, 15.3, 2);
+	('Omlet'),
+	('Posna sarma'),
+	('Pomfrit'),
+	('Happy Hamburger'),
+	('Selska trpeza'),
+	('Bon apeti'),
+	('Grickaj si');
 
-insert into sportovi(naziv_sport)
+insert into Dnevnici_za_ishrana(datum, chas, korisnik, obrok)
 values
-	('Kosharka'),
-	('Fudbal'),
-	('Ragbi'),
-	('Tenis'),
-	('Odbojka'),
-	('Rakomet'),
-	('Ping pong');
+	(to_date('01012020', 'ddmmyy'), '10:00', 1, 3),
+	(to_date('01012020', 'ddmmyy'), '11:00', 1, 4),
+	(to_date('01012020', 'ddmmyy'), '15:20', 1, 2),
+	(to_date('01012020', 'ddmmyy'), null, 2, 6),
+	(to_date('01012020', 'ddmmyy'), '09:15', 3, 7),
+	(to_date('01012020', 'ddmmyy'), '10:00', 4, 1),
+	(to_date('01012020', 'ddmmyy'), '20:00', 4, 4),
+	(to_date('01012020', 'ddmmyy'), '22:00', 1, 5),	
+	(to_date('02012020', 'ddmmyy'), '08:00', 3, 1),
+	(to_date('02012020', 'ddmmyy'), '10:00', 2, 2),
+	(to_date('02012020', 'ddmmyy'), '10:00', 4, 5),
+	(to_date('02012020', 'ddmmyy'), '15:00', 4, 2);
 
-insert into vezhbi(naziv_vezhba)
+insert into Hrana(naziv_hrana, kalorii, proteini, masti)
 values
-	('Pull up'),
-	('Push up'),
-	('Stomachni');
+	('Graf', 100, null, null),
+	('Jajce', 150, 20, 15),
+	('Oriz', 120, 15, 80),
+	('Meso meleno', 250, null, 70),
+	('Kompir', 500, 10, 120),
+	('Zelka', 5, null, null),
+	('Meso svinsko', 850, 150, 200),
+	('Pechurki', 25, 30, null),
+	('Rebra svinski', 400, 80, 90),
+	('Ligni', 80, null, null),
+	('Pastrmka', 100, 15, 10),
+	('Krap', 120, 36, null),
+	('Morkov', 10, 5, null),
+	('Semki', 1, 1, 2.5),
+	('Chvarki', 650, 48, 270),
+	('Orev', 15, 8, null);
 
-insert into dnevnici_za_trening(chas_pochetok, chas_kraj, dnevnik_fk)
+insert into Pialoci(naziv_pialok, alkohol, hranliva_vrednost)
 values
-	('08:20', '09:30', 1),
-	('15:30', '16:00', 1),
-	('12:00', '13:00', 2);
+	('Pivo', true, 5),
+	('Sok od sliva', false, 2),
+	('Belo vino', true, 2),
+	('Crveno vino', true, 2),
+	('Coca-Cola', false, 0),
+	('Fanta', false, 0),
+	('Koktel', true, 0);
 
-insert into treninzi(dnevnik_trening)
+insert into Suplementi(naziv_supl, opis_supl)
+values
+	('Protein-k100', 'Nogu jak protein'),
+	('KreatinSumo2', 'Nogu slab kreatin'),
+	('JohnWickProTip', null);
+
+insert into Sportovi(naziv_sport, tezhina_sport)
+values
+	('Kosharka', 8),
+	('Fudbal', 6),
+	('Odbojka', 7),
+	('Golf', 9),
+	('Tenis', 6),
+	('Hokej', 9),
+	('Pikado', 3),
+	('Ragbi', 10);
+
+insert into Treninzi(sport)
 values
 	(1),
+	(null),
+	(5),
+	(4),
+	(7),
+	(1),
 	(2),
-	(3);
+	(null),
+	(3),
+	(1),
+	(null);
 
-insert into sportuva(sport, trening,vreme_min)
+insert into Dnevnici_za_trening(datum, chas_start, chas_end, korisnik, trening)
 values
-	(1, 1, 90),
-	(2, 3, 60);
+	(to_date('05012020', 'ddmmyy'), '10:00', '13:20', 1, 1),
+	(to_date('05012020', 'ddmmyy'), '10:00', '13:20', 2, 3),
+	(to_date('05012020', 'ddmmyy'), null, null, 2, 6),
+	(to_date('05012020', 'ddmmyy'), null, null, 3, 4),
+	(to_date('06012020', 'ddmmyy'), '12:00', '13:20', 1, 1),
+	(to_date('06012020', 'ddmmyy'), null, null, 4, 5),
+	(to_date('06012020', 'ddmmyy'), null, null, 3, 1),
+	(to_date('06012020', 'ddmmyy'), null, null, 2, 2),
+	(to_date('07012020', 'ddmmyy'), '10:00', '13:20', 1, 10),
+	(to_date('07012020', 'ddmmyy'), '10:00', '13:20', 2, 11),
+	(to_date('07012020', 'ddmmyy'), null, null, 1, 4),
+	(to_date('07012020', 'ddmmyy'), null, null, 2, 3),
+	(to_date('08012020', 'ddmmyy'), null, null, 3, 1),
+	(to_date('08012020', 'ddmmyy'), '10:00', '13:20', 4, 9);
 
-insert into vezhba(vezba, trening, povtoruvanja)
+insert into Vezhbi(naziv_vezhba, tezhina_vezhba)
 values
-	(1, 2, 50),
-	(2, 2, 50),
-	(3, 2, 25);
+	('Sklek', 4),
+	('Stomachni', 3),
+	('Zgib-v1', 5),
+	('Zgib-v2', 6),
+	('Cucnev', 2),
+	('Skok vo mesto', 1);
 
-insert into hrana(naziv_hrana, kal_100g, proteini_100g, masti_100g)
+insert into Dnevnici_za_trchanje(datum, metri, vreme_min, korisnik)
 values
-	('tavche grafche', 30, 15, 20),
-	('tava oriz', 25, 30, 15),
-	('pechena kokoshka', 40, 15, 15),
-	('puneni piperki', 20, 20, 20);
+	(to_date('03012020', 'ddmmyy'), 1200, 20, 1),
+	(to_date('03012020', 'ddmmyy'), 1800, 24, 2),
+	(to_date('04012020', 'ddmmyy'), 2000,28, 3),
+	(to_date('04012020', 'ddmmyy'), 1500, 20, 4),
+	(to_date('04012020', 'ddmmyy'), 1300, 19, 1),
+	(to_date('05012020', 'ddmmyy'), 1100, 19, 2),
+	(to_date('05012020', 'ddmmyy'), 1900, 22, 3),
+	(to_date('05012020', 'ddmmyy'), 2100, 30, 4),
+	(to_date('05012020', 'ddmmyy'), 1200, 15, 1),
+	(to_date('06012020', 'ddmmyy'), 1650, 18, 2),
+	(to_date('06012020', 'ddmmyy'), 2200, 27, 3);
 
-insert into pialoci(naziv_pialok, alkohol, hranliva_vrednost)
+insert into Obrok_sodrzhi_hrana(obrok, hrana, kolichina)
 values
-	('dzus', false, 1),
-	('pivo', true, 4),
-	('vino', true, 2),
-	('vodka', true, 0),
-	('rakija', true, 0),
-	('pepsi', false, -1);
+	(1, 2, 2),
+	(2, 3, 1),
+	(2, 6, 1),
+	(3, 5, 5),
+	(4, 4, 1),
+	(4, 5, 1),
+	(5, 1, 1),
+	(5, 2, 1),
+	(5, 3, 1),
+	(5, 4, 1),
+	(5, 5, 1),
+	(5, 6, 1),
+	(5, 7, 1),
+	(5, 8, 5),
+	(5, 9, 3),
+	(6, 9, 4),
+	(6, 10, 7),
+	(6, 11, 1),
+	(6, 12, 1),
+	(7, 14, 20),
+	(7, 15, 20),
+	(7, 16, 20);
 
-insert into suplementi(ime_suplement, opis_suplement)
+insert into Obrok_sodrzhi_pialok(obrok, pialok, kolichina_l)
 values
-	('amino plus', 'amino kiselini');
+	(1, 6, 0.5),
+	(3, 1, 0.5),
+	(4, 5, 0.5),
+	(5, 3, 2),
+	(5, 4, 2),
+	(6, 7, 5),
+	(7, 1, 1);
 
-insert into Obroci(naziv_opis_obrok)
-values
-	('pojadok-pavlaka'),
-	('pojadok-omlet'),
-	('posna trpeza');
-
-insert into konzumirani_obroci(dnevnik_hrana, obrok)
-values
-	(1, 3),
-	(2, 3),
-	(3, 3),
-	(4, 3),
-	(5, 3);
-
-insert into sodrzhi_hrana(hrana, obrok, kolichina)
-values
-	(1, 3, 20),
-	(2, 3, 15),
-	(4, 2, 12),
-	(3, 1, 23);
-
-insert into sodrzhi_pialok(pialok, obrok, kolichina_litri)
-values
-	(1, 3, 5),
-	(2, 3, 3),
-	(5, 3, 6),
-	(2, 2, 1),
-	(4, 2, 2),
-	(1, 1, 1.5),
-	(3, 1, 3.2);
-
-insert into ponuduva_prog_ishr(programa, instruktor)
-values
-	(1, 1),
-	(2, 2);
-
-insert into sodrzhi_obrok(obrok, programa)
-values
-	(3, 1),
-	(3, 2),
-	(1, 2);
-
-insert into ponuduva_prog_vezhbi(programa, instruktor)
-values
-	(1, 2);
-
-insert into sodrzhi_trening(trening, programa)
+insert into Obrok_sodrzhi_suplement(obrok, suplement)
 values
 	(2, 1),
-	(3, 1);
+	(4, 1),
+	(6, 2),
+	(7, 3);
 
+insert into Trening_sodrzhi_vezhba(trening, vezhba, povtoruvanja)
+values
+	(2, 2, 20),
+	(2, 3, 30),
+	(2, 2, 15),
+	(2, 4, 25),
+	(8, 1, 50),
+	(8, 2, 30),
+	(8, 5, 25),
+	(11, 3, 35),
+	(11, 1, 20);
 
-SELECT max(sum(metri) FROM dnevnici_za_trchanje
-WHERE
-dnevnici.dnevnik_i
+insert into Programi_za_ishrana_sodrzhat_obroci(programa_ishr, obrok)
+values
+	(1, 1),
+	(1, 2),
+	(1, 7),
+	(2, 3),
+	(2, 4),
+	(3, 7),
+	(4, 6),
+	(5, 5),
+	(5, 6),
+	(6, 1),
+	(6, 2),
+	(6, 5),
+	(6, 6);
 
+insert into Programi_za_trening_sodrzhat_treninzi(programa_trening, trening)
+values
+	(1, 2),
+	(2, 2),
+	(2, 4),
+	(3, 1),
+	(3, 2),
+	(4, 2),
+	(4, 8),
+	(4, 1),
+	(5, 1),
+	(5, 2),
+	(5, 4),
+	(5, 5),
+	(5, 8),
+	(5, 10),
+	(5, 11),
+	(6, 2),
+	(6, 8),
+	(6, 9),
+	(6, 11);
 
+insert into Instruktori_nudat_programa_za_ishrana(programa_ishr, instruktor)
+values
+	(1, 1),
+	(1, 3),
+	(2, 5),
+	(3, 2),
+	(3, 3),
+	(4, 4),
+	(5, 3),
+	(6, 1),
+	(6, 5);
+
+insert into Instruktori_nudat_programa_za_trening(programa_trening, instruktor)
+values
+	(1, 4),
+	(1, 5),
+	(2, 3),
+	(3, 1),
+	(4, 2),
+	(4, 3),
+	(5, 1),
+	(6, 3);
 
 
 
